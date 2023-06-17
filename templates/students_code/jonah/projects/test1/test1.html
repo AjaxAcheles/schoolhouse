@@ -1,0 +1,67 @@
+{% extends "run_layout.html" %} {% set page_title="test1" %}
+
+{% block heading %}
+<h1 class="fs-1">test1</h1>
+<p class="fs-4">test 1, duh</p>
+<br>
+<py-config>
+</py-config>
+{% endblock %}
+
+{% block content %}
+
+<button id='button2'>click here to print to add a p-tag</button>
+
+
+<script>
+    function addPTag() {
+        const para = document.createElement('p');
+        para.innerText = 'This is a paragraph';
+        document.body.appendChild(para);
+    }
+</script>
+
+<py-script>
+    from js import document, addPTag
+    from pyodide import create_proxy
+    # functions
+    def add_tag(event):
+        global tag_name
+        addPTag()
+    # Event Listeners
+    add_tag_proxy = create_proxy(add_tag)
+    document.getElementById('button2').addEventListener('click', add_tag_proxy)
+</py-script>
+
+<!--translation code-->
+<!--
+<script>
+    function stringToHTML (str) {
+        var div = document.createElement('div');
+        div.innerHTML = str;
+        return div;
+    
+    };
+    function stringToJavascript (str) {
+        var script = document.createElement('script');
+        script.innerHTML = str;
+        return script;
+    
+    };
+    function stringToPyScript (str) {
+        var python = document.createElement('py-script');
+        python.innerHTML = str;
+        return python;
+    
+    };
+    $("#project-html").replaceWith(stringToHTML("{{project_html}}"));
+    $("#project-javascript").replaceWith(stringToJavascript("{{project_javascript}}"));
+    $("#project-py-script").replaceWith(stringToPyScript("{{project_py_script}}"));
+</script>
+-->
+<!--
+    # Event Listeners
+      proxy = create_proxy(func_name)
+      document.getElementById("ID").addEventListener("click", proxy)
+-->
+{% endblock %}

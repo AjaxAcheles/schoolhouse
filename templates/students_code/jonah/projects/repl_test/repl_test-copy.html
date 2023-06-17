@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>repl test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    
+  </head>
+  <body>
+    
+    <div class="text-center">
+        <h1 class="fs-1">repl test</h1>
+        <p class="fs-4">test to see if I can make a simple print and input thing work</p>
+        <py-config>
+        </py-config>
+        </div>
+        <hr>
+
+    <script src="./repl_test.js"></script>
+
+    <py-script src="./repl_test.py">
+    </py-script>
+
+    <div id="output" class="container-fluid" style="margin-bottom: 30px;">
+        <py-repl output="output">
+            print("hello there")
+        </py-repl>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  </body>
+</html> 
+
+
+

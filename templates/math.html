@@ -1,0 +1,39 @@
+{% extends "layout.html" %} {% set page_title="Math" %} 
+
+{% block heading %}
+<div class="position-relative top-50 start-50 translate-middle-x">
+  <h1 class="fs-1">Math</h1>
+  <p class="fs-4 text-muted">Includes Everything From Kendigarden Level Math To Algebra 1</p>
+  <br>
+</div><!--makes a centered div-->
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="container-fluid row row-cols-3 mb-5 pb-5">
+        <div class="col-md-2 col-1"></div> <!--for spacing-->
+        
+        <div class="col-md-8 col-10">
+          <p class="fs-4 text-start lh-lg text-center">
+            In this class, I will go through the lessons <span class="text-capitalize">in the student's own math book</span> and walk them through any concepts or practice problems they do not understand.
+            The objective of the sessions is to provide a strong foundation for math the future.
+            The idea is that a more complete understanding of the fundamentals will help the student acquire a deeper understanding of more advanced topics.
+          </p>
+        </div>
+
+        <div class="col-md-2 col-1"></div><!--for spacing-->
+    </div>
+
+  <p class="fs-1">Pricing</p>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <p class="fs-4">$25 per Hour</p>
+    </li>
+  </ul>
+  
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% set page_title="Courses" %}
+
+{% block heading %}
+<div class="position-relative top-50 start-50 translate-middle-x">
+  <h1 class="fs-1">Courses</h1>
+</div><!--makes a centered div-->
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+
+    <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3 g-6 g-lg-4 g-xxl-2">
+
+
+      <div class="col col-12 col-lg-6 col-xxl-6"><!--begining of math card algebra-->
+        <div class="card text-center border-info">
+          <div class="card-body">
+            <h5 class="card-title">Math</h5>
+            <p class="card-text">Includes Everything From Kindergarten Level Math To Algebra 1.</p>
+            <a href="{{url_for('math')}}" class="btn btn-primary">More Info</a>
+          </div>
+        </div>
+      </div><!--end of math card algebra-->
+
+
+      <div class="col col-12 col-lg-6 col-xxl-6"><!--begining of math card grade 5-8-->
+        <div class="card text-center border-info">
+          <div class="card-body">
+            <h5 class="card-title">Web-Dev</h5>
+            <p class="card-text">Through this course, you can learn how to create your very own website.</p>
+            <a href="{{url_for('web_dev')}}" class="btn btn-primary">More Info</a>
+          </div>
+        </div>
+      </div><!--end of math card 1 grade 5-8-->
+
+
+      <div class="col col-12 col-lg-6 col-xxl-6"><!--begining of math card grade 5-8-->
+        <div class="card text-center border-info">
+          <div class="card-body">
+            <h5 class="card-title">Python</h5>
+            <p class="card-text">Through this course, you can learn how to use one of the most widespread coding languages. Python is used by Amazon, Google, and even the U.S Government.</p>
+            <a href="{{url_for('python')}}" class="btn btn-primary">More Info</a>
+          </div>
+        </div>
+      </div><!--end of math card 1 grade 5-8-->
+
+
+    </div>
+
+  </div>
+{% endblock %}
+
+
+<!--make a seperate info page for each course. one for web-dev, one for python, one for math grade 1-4, ect...-->
+<!--https://www.khanacademy.org/math/k-8-grades to se grade levels for k-8th-->

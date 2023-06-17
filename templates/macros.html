@@ -1,0 +1,73 @@
+{% macro list_students(students, is_locked) %}
+    <div class="container-fluid pt-5 mt-5">
+        <div class="container-sm">
+          <div class="row">
+            <div class="col-3"></div><!--for spacing-->
+            <div class="col-6 border border-info border-1 rounded-1">
+            {% for student in students %}
+              <div class="form-group mt-2 mb-1">
+                <form method="POST">
+                  <div class="input-group folder-icon">
+                    <span class="input-group-text"><img class="img-16x16 folder-icon" src="{{url_for('static', filename='folder2.png')}}"></span>
+                    <input class="form-control text-start text-capitalize" name="student" type="submit" value="{{student}}">
+                    <!--adds lock.png-->
+                    {% if is_locked[student] == True %}
+                    <span class="input-group-text"><img class="img-16x16" src="{{url_for('static', filename='lock.png')}}"></span>
+                    {% endif %}
+                  </div><!--input group-->
+                </form>
+              </div><!--open a file containing every one of a student's projects-->
+            {% endfor %}
+            </div><!--col-6//main ui part//has the blue border-->
+            <div class="col-3"></div><!--for spacing-->
+          </div><!--row-->
+        </div><!--container-->
+    </div><!--end of fluid container-->
+{% endmacro %}
+
+
+{% macro list_projects(projects) %}
+    <div class="container-fluid pt-5 mt-5">
+        <div class="container-sm">
+          <div class="row">
+            <div class="col-3"></div><!--for spacing-->
+            <div class="col-6 border border-info border-1 rounded-1">
+            {% for project in projects %}
+              <div class="form-group mt-2 mb-1">
+                <form method="POST">
+                  <div class="input-group folder-icon">
+                    <span class="input-group-text"><img class="img-16x16" src="{{url_for('static', filename='folder2.png')}}"></span>
+                    <input class="form-control text-start" name="project" type="submit" value="{{project}}">
+                  </div><!--input group-->
+                </form>
+              </div><!--open a file containing every one of a student's projects-->
+            {% endfor %}
+            </div><!--col-6//main ui part//has the blue border-->
+            <div class="col-3"></div><!--for spacing-->
+          </div><!--row-->
+        </div><!--container-->
+    </div><!--end of fluid container-->
+{% endmacro %}
+
+{% macro open_project_folder(project_folder, folder_path) %}
+    <div class="container-fluid pt-5 mt-5">
+        <div class="container-sm">
+          <div class="row text-center">
+            <div class="col-3"></div><!--for spacing-->
+            <div class="col-6 border border-info border-1 rounded-1">
+            {% for project in project_folder %}
+              <div class="form-group mt-2 mb-1">
+                <form method="POST">
+                  <div class="input-group folder-icon">
+                    <span class="input-group-text"><img class="img-16x16" src="{{url_for('static', filename='file-earmark-code.png')}}"></span>
+                    <input class="form-control text-start" name="file-name" type="submit" value="{{project}}">
+                  </div><!--input group-->
+                </form>
+              </div><!--open a file containing every one of a student's projects-->
+            {% endfor %}
+            </div><!--col-6//main ui part//has the blue border-->
+            <div class="col-3"></div><!--for spacing-->
+          </div><!--row-->
+        </div><!--container-->
+    </div><!--end of fluid container-->
+{% endmacro %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %} {% set page_title="Student's Projects" %}
+{% from "macros.html" import open_project_folder %}
+
+{% block heading %}
+<div class="position-relative top-50 start-50 translate-middle-x">
+  <h1 class="fs-1">Students Projects</h1>
+  <br>
+  <blockquote class="fs-3 text-center">Here, The Tutors Will Post The Student's Finished Projects!</blockquote>
+</div><!--makes a centered div-->
+{% endblock %}
+
+{% block content %}
+
+{{ open_project_folder(project_folder_contents, folder_path) }}
+
+<script>
+  function hoverOn(event) {
+    targets = event.currentTarget
+    //set img tag to open folder
+    img = targets.getElementsByTagName("img");
+    console.log(img);
+    $(img).attr("src", "{{url_for('static', filename='file-earmark-code-fill.png')}}")
+    //darken the div
+  }
+
+  function hoverOff(event) {
+    img = event.currentTarget.getElementsByTagName("img");
+    console.log(img);
+    $(img).attr("src", "{{url_for('static', filename='file-earmark-code.png')}}")
+  }
+
+  $(".folder-icon").hover(hoverOn, hoverOff)
+
+</script>
+{% endblock %}

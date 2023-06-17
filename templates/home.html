@@ -1,0 +1,60 @@
+{% extends "layout.html" %} {% set page_title="Home" %}
+
+{% block heading %}
+<div class="position-relative top-50 start-50 translate-middle-x">
+  <h1 class="fs-1">SchoolHouse</h1>
+  <br>
+  <blockquote class="fs-3 text-center">As each has received a gift, use it to serve one another, as good stewards of God's grace</blockquote>
+  <p class="blockquote-footer text-center text-muted">1 Peter 4:10</p>
+</div><!--makes a centered div-->
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid pt-5 mt-5">
+  <h1 class="mb-5 text-center fs-1">Math</h1>
+  <!--begining of math row-->
+  <div class="row mb-5 pb-5">
+    <div class="col-lg-1 col-2"></div><!--for spacing-->
+
+    <!--begining of math photo col-->
+    <div class="col-lg-5 d-none d-lg-block">
+      <img class="rounded img-full-x" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgUNBPGn3fyiGCe9ND0GcpI9mKQr1P5gBlZ-YdxpBP1SZOUT3iNGUi4Y2JJ_pvRJoSTqg&usqp=CAU">
+    </div><!--end of math photo col-->
+
+    <!--begining of math text col-->
+    <div class="col-lg-5 col-8">
+      <p class="fs-4 text-start">
+        Mathematics is often disliked due to its tedious, time-consuming, and confusing nature. However, I believe in transforming students' perception of math by providing thorough explanations of concepts. This helps students understand the reasoning behind formulas, develop shortcuts, and make connections. I strive to create an engaging learning environment, encourage active participation, and foster a growing mind.
+      </p>
+    </div><!--end of math text-->
+
+    <div class="col-lg-1 col-2"></div><!--for spacing-->
+  </div> <!--end of math row-->
+
+
+
+  <h1 class="pt-5 my-5 text-center fs-1">Computer Programming</h1>
+  <div class="row mb-5 pb-5">
+    <div class="col-lg-1 col-2"></div><!--for spacing-->
+
+    <!--begining of coding text col-->
+    <div class="col-lg-5 col-8">
+      <p class="fs-4 text-end">
+        Coding, or computer programming, is a means of communicating with computers through instructions written in code. It offers numerous possibilities, including website and app development, data processing, and more. In my coding classes, I teach students either Python, a widely used programming language, or Website Development, which combines multiple languages for creating functional websites. Students gain a solid foundation in coding concepts and develop practical skills through hands-on exercises and collaborative projects. Coding skills enhance logical thinking, analytical reasoning, and attention to detail, preparing students for various industries in the digital age.
+      </p>
+    </div><!--end of coding text-->
+
+
+    <!--begining of coding photo col-->
+    <div class="col-lg-5 d-none d-lg-block">
+      <img class="rounded img-full-x" alt="an image showing a chalkboard with math on it" src="https://149695847.v2.pressablecdn.com/wp-content/uploads/2019/06/chris-ried-512801-unsplash.jpg">
+    </div><!--end of coding photo col-->
+
+    <div class="col-lg-1 col-2"></div><!--for spacing-->
+  </div> <!--end of coding row-->
+
+
+</div><!--end of fluid container-->
+{% endblock %}
+
+

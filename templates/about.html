@@ -1,0 +1,88 @@
+{% extends "layout.html" %} {% set page_title="About" %}
+
+{% block heading %}
+<div class="position-relative top-30 start-50 translate-middle-x">
+  <h1 class="fs-1">About</h1>
+  <p class="fs-4">Learn more about who I am and how I do things</p>
+  <br>
+</div>
+<!--makes a centered div-->
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid row row-cols-3 mb-5 pb-5">
+  <div class="col-md-2 col-1"></div> <!--for spacing-->
+
+  <div class="col-md-8 col-10">
+    <h2 class="mb-5 text-center">How I Teach</h2>
+    <p class="lh-base fs-4">
+      All of my sessions are one-on-one classes designed to help students better grasp the concepts of the material.
+    </p>
+  </div>
+
+  <div class="col-md-2 col-1"></div><!--for spacing-->
+</div>
+
+
+<div class="container-fluid row row-cols-3 mb-5 pb-5">
+  <div class="col-md-2 col-1"></div> <!--for spacing-->
+
+  <div class="col-md-8 col-10">
+    <h2 class="mb-5 text-center">How We Schedule Meetings</h2>
+    <p class="lh-base fs-4">
+      When you schedule a session with me, you have the option to choose between an online meeting or an in-person meeting. 
+      In online classes, I utilize Zoom, which offers a whiteboard feature, allowing us to draw on the same virtual sheet of paper. 
+      For in-person meetings, we will meet at a location of your choosing.
+    </p>
+  </div>
+
+  <div class="col-md-2 col-1"></div><!--for spacing-->
+</div>
+
+
+<div class="container"> <!--begining of the container full of cards listing our team-->
+  <div class="row g-5 row-cols-2"><!--begining of row for all of the cards -->
+    <!--begining of the first card -->
+    <div class="col-3"></div>
+      <div class="col col-6" id="jonahs-card">
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="https://lh3.googleusercontent.com/a-/AFdZucqzE9Modc2g8uzIu_xujM8NZexsfGvAnhNYDd96=s360-p-rw-no" class="img-fluid rounded-start rounded-circle">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Jonah Wang</h5>
+
+                <ul class="list-group list-group-flush"> <!--begining of list-->
+
+                  <li class="list-group-item"> <!--start of a list item-->
+                    <p class="card-text">I Love a Good Puzzle or Challenge</p>
+                  </li><!--end of a list item-->
+
+                  <li class="list-group-item"> <!--start of a list item-->
+                    <p class="card-text">I Design Video Games and Websites as a Hobby</p>
+                  </li><!--end of a list item-->
+
+                  <li class="list-group-item"> <!--start of a list item-->
+                    <p class="card-text text-capitalize">I Built This Website From Scratch, a fact that I am very proud of</p>
+                  </li><!--end of a list item-->
+
+                  <li class="list-group-item"> <!--start of a list item-->
+                    <p class="card-text">I Love to read</p>
+                  </li><!--end of a list item-->
+
+                </ul><!--end of list-->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3"></div>
+    <!--end of the first card -->
+
+  </div><!--end of row for all of the cards -->
+</div><!--end of container-->
+{% endblock %}
+

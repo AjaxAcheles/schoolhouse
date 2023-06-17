@@ -1,0 +1,33 @@
+{% extends "layout.html" %} {% set page_title="Student's Projects" %}
+{% from "macros.html" import list_students %}
+
+{% block heading %}
+<div class="position-relative top-50 start-50 translate-middle-x">
+  <h1 class="fs-1">Students Projects</h1>
+  <br>
+  <blockquote class="fs-3 text-center">Here, I Will Post The Student's Finished Projects!</blockquote>
+</div><!--makes a centered div-->
+{% endblock %}
+
+{% block content %}
+
+{{ list_students(students, is_locked) }}
+
+<script>
+  function hoverOn(event) {
+    targets = event.currentTarget
+    //set img tag to open folder
+    img = targets.getElementsByClassName("folder-icon");
+    $(img).attr("src", "{{url_for('static', filename='folder2-open.png')}}")
+    //darken the div
+  }
+
+  function hoverOff(event) {
+    img = event.currentTarget.getElementsByClassName("folder-icon");
+    $(img).attr("src", "{{url_for('static', filename='folder2.png')}}")
+  }
+
+  $(".folder-icon").hover(hoverOn, hoverOff)
+
+</script>
+{% endblock %}
