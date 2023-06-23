@@ -57,7 +57,7 @@ def get_project_folder_contents(student_name, project_name, get_path:bool=False)
     return None
 
 def get_file_contents(student_name, project_name, file_name):
-    from os import getcwd, listdir
+    from os import getcwd
     # open and retrieve data from files
     path = getcwd()
     local_path = f"students_code\\{student_name}\\projects\\{project_name}\\{file_name}"
