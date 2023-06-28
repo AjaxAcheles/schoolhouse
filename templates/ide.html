@@ -1,0 +1,2281 @@
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" src="{{url_for('static', filename='ide.css')}}">
+
+    <title>Run Code</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"></noscript>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-language_tools.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-settings_menu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.2/split.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/he/he.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-language_tools.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-settings_menu.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.8/ext-keybinding_menu.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.2/split.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css></noscript>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <style>
+        body {
+            --body-background-color: #f2f5f8;
+            --navbar-background-color: linear-gradient(89.81deg, #0678F4 41.01%, #37B2DF 99.64%);
+            --nav-tab-background-color: #ebebeb;
+            --tab-background-color: #f4f4f4;
+            --transition-delay: 0.5s;
+            --button-bg-color: white;
+            --button-bg-hover: #e7e7e7;
+            --form-bg-color: white;
+            --form-border-color: #1a73e8e3;
+            --border-color: 1px solid #d2d6de;
+            --icon-color: black;
+            --terminal-bg-color: white;
+            --text-color: black;
+            --text1-color: #5e5e5e;
+            --text2-color: rgb(46, 46, 46);
+            --nav-tab-active-text: black;
+            --nav-tab-inactive-text: darkgrey;
+            --nav-tab-active-color: white;
+            --nav-tab-active-bg-color: white;
+            --warning-color: red;
+            --box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px 1px;
+            --carbon-ad-bg-color: hsl(0, 0%, 98%);
+            --carbon-ad-box-shadow: 0 1px 4px 1px hsla(0, 0%, 0%, .1);
+            --carbon-ad-color: inherit;
+            --carbon-ad-bg: repeating-linear-gradient(-45deg, transparent, transparent 5px, hsla(0, 0%, 0%, .025) 5px, hsla(0, 0%, 0%, .025) 10px) hsla(203, 11%, 95%, .4);
+            --min-width: 320px;
+            background-color: var(--body-background-color);
+            transition: var(--transition-delay);
+            font-family: source sans pro, helvetica neue, Helvetica, Arial, sans-serif
+        }
+        
+        body.dark {
+            --body-background-color: rgb(15, 15, 15);
+            --navbar-background-color: linear-gradient(132deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 60%);
+            --nav-tab-background-color: rgb(39, 40, 43);
+            --tab-background-color: rgb(39, 40, 43);
+            --button-bg-color: rgb(39, 40, 43);
+            --button-bg-hover: grey;
+            --border-color: 1px solid transparent;
+            --form-bg-color: rgb(34, 34, 39);
+            --form-border-color: black;
+            --icon-color: white;
+            --terminal-bg-color: black;
+            --text-color: white;
+            --text1-color: #bdbdbd;
+            --text2-color: #bdbdbd;
+            --nav-tab-active-text: white;
+            --nav-tab-inactive-text: #909099;
+            --nav-tab-active-color: green;
+            --nav-tab-active-bg-color: rgb(39, 40, 43);
+            --warning-color: darkorange;
+            --carbon-ad-bg-color: hsl(0, 0%, 10%);
+            --carbon-ad-box-shadow: 0 0 1px hsla(0, 0%, 0%, .5);
+            --carbon-ad-color: #ddd;
+            --carbon-ad-bg: repeating-linear-gradient(-45deg, transparent, transparent 5px, hsla(0, 0%, 0%, .025) 5px, hsla(0, 0%, 0%, .025) 10px) hsla(203, 11%, 15%, .4);
+            background-image: none
+        }
+        
+        #editor-main {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 1px 1px 4px 1px hsla(0, 0%, 0%, .1);
+            box-shadow: var(--box-shadow);
+            margin-top: 6px;
+            margin-left: 5px;
+            margin-right: 5px;
+            border-radius: 10px
+        }
+        
+        #create_tab,
+        #header-control>.btn-group>.btn {
+            background-color: #fff;
+            border: 1px solid #d2d6de;
+            color: #000;
+            background-color: var(--button-bg-color);
+            border: var(--border-color);
+            color: var(--icon-color);
+            transition: var(--transition-delay)
+        }
+        
+        #header-control>.btn-group>.btn:hover {
+            background-color: #e7e7e7;
+            border: 1px solid #d2d6de;
+            color: #000;
+            background-color: var(--button-bg-hover);
+            border: var(--border-color);
+            color: var(--icon-color);
+            transition: var(--transition-delay)
+        }
+        
+        .textbox {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #d2d6de;
+            background-color: var(--form-bg-color);
+            color: var(--text-color);
+            border: var(--border-color);
+            transition: var(--transition-delay)
+        }
+        
+        #terminal {
+            width: 100%;
+            margin: 0;
+            background-color: #fff;
+            border: 1px solid #d2d6de;
+            background-color: var(--terminal-bg-color);
+            transition: var(--transition-delay);
+            border: var(--border-color);
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px
+        }
+        
+        #hint-btn {
+            transition: .6s ease-out;
+            transform: scale(1)
+        }
+        
+        .btn-primary,
+        .btn-primary:active,
+        .btn-primary:visited,
+        .btn-primary:focus {
+            background-color: #085fd1;
+            border-color: #085fd1
+        }
+        
+        .btn-primary:hover {
+            background-color: #064faf
+        }
+        
+        .btn-success:hover,
+        .btn-success:active,
+        .btn-success.hover {
+            background-color: #008d4c !important;
+            color: #fff
+        }
+        
+        .btn-danger:hover,
+        .btn-danger:active,
+        .btn-danger.hover {
+            background-color: #dd4b39 !important;
+            color: #fff
+        }
+        
+        #share-btn:hover,
+        #share-btn:active,
+        #share-btn.hover {
+            background-color: #646464 !important;
+            color: #fff
+        }
+        
+        .ui.fluid.dropdown {
+            float: right;
+            height: 34px !important;
+            margin-right: .3rem;
+            width: 15rem !important;
+            transition: .5s;
+            background-color: #fff;
+            color: #000;
+            background-color: var(--button-bg-color);
+            color: var(--text-color)
+        }
+        
+        .ui.selection.dropdown {
+            min-height: 34px !important
+        }
+        
+        .ui.dropdown .menu>.item {
+            font-size: inherit;
+            display: flex
+        }
+        
+        .ui.dropdown .menu>.item>img {
+            transform: scale(.8);
+            height: 3rem !important;
+            width: 3.6rem !important;
+            margin-left: -.1rem !important
+        }
+        
+        .ui.selection.dropdown>.dropdown.icon {
+            margin-top: -1.2rem
+        }
+        
+        .ui.selection.visible.dropdown>.text:not(.default),
+        .ui.dropdown>.text {
+            display: flex;
+            margin-top: -.2rem;
+            color: #000;
+            color: var(--text-color)
+        }
+        
+        .ui.selection.dropdown .menu {
+            max-height: 15em !important
+        }
+        
+        .ui.dropdown>.text>img {
+            width: 3rem !important;
+            transform: scale(.8)
+        }
+        
+        @media only screen and (min-width:768px) {
+            .ui.selection.dropdown .menu {
+                max-height: 25em !important
+            }
+        }
+        
+        #control-btn {
+            margin-right: 3px
+        }
+        
+        #input_arguments {
+            flex: 1
+        }
+        
+        #share-btn {
+            flex: .01;
+            margin-right: 3px;
+            background-color: #fff;
+            color: rgba(0, 0, 0, .65);
+            color: var(--text1-color);
+            border-color: grey
+        }
+        
+        #run-btn,
+        #share-btn,
+        #stop-btn {
+            min-width: 7.5rem;
+            background-color: #fff;
+            background-color: var(--button-bg-color);
+            transition: var(--transition-delay)
+        }
+        
+        #share-content-after {
+            top: 20vh
+        }
+        
+        #share-content {
+            top: 20vh;
+            height: 240px
+        }
+        
+        #share-dialog {
+            width: 360px
+        }
+        
+        #share-dialog-after {
+            width: 380px
+        }
+        
+        #addthis_nav {
+            margin-top: 5px;
+            margin-left: 1rem
+        }
+        
+        #addthis_share_modal {
+            margin-top: 2.4rem;
+            text-align: center;
+            transform: scale(1.5)
+        }
+        
+        #share-copy {
+            float: right;
+            margin-right: 5px;
+            margin-top: 2px;
+            cursor: pointer
+        }
+        
+        #share-btn-modal {
+            width: 100%
+        }
+        
+        .nav-tabs>li>a {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: -2px
+        }
+        
+        .nav-tabs>li>a:hover {
+            background-color: #ebebeb;
+            background-color: var(--nav-tab-background-color);
+            color: var(--nav-tab-active-text)
+        }
+        
+        .nav-tabs>li:not(.active)>a {
+            color: darkgrey;
+            background-color: #ebebeb;
+            color: var(--nav-tab-inactive-text);
+            font-weight: 400;
+            background-color: var(--nav-tab-background-color);
+            border: 0;
+            border-bottom-color: transparent;
+            transition: var(--transition-delay)
+        }
+        
+        .nav-tabs>li.active>a,
+        .nav-tabs>li.active>a:focus,
+        .nav-tabs>li.active>a:hover {
+            color: #000;
+            background-color: #fff;
+            border-bottom: 2px solid #fff;
+            color: var(--nav-tab-active-text);
+            cursor: default;
+            font-weight: 400;
+            background-color: var(--nav-tab-active-bg-color);
+            border: 0;
+            border-bottom: 2px solid var(--nav-tab-active-color);
+            transition: var(--transition-delay)
+        }
+        
+        .nav-tabs>li.active>a {
+            border: 0;
+            border-bottom: 2px solid #fff;
+            border-bottom: 2px solid var(--nav-tab-active-color)
+        }
+        
+        #start-term {
+            margin-top: .2rem
+        }
+        
+        #content {
+            position: relative;
+            width: 60%;
+            margin: auto;
+            z-index: 10
+        }
+        
+        .navbar-top {
+            background-image: linear-gradient(89.81deg, #0678F4 41.01%, #37B2DF 99.64%);
+            background-image: var(--navbar-background-color);
+            transition: var(--transition-delay);
+            display: flex;
+            flex-direction: row;
+            height: 40px;
+            min-width: var(--min-width)
+        }
+        
+        .nav_logo {
+            font-family: vicasso;
+            color: #fff;
+            font-size: 150% !important;
+            margin-top: 10px !important;
+            margin-left: 13.5vw
+        }
+        
+        .addthis_inline_share_toolbox_28pb {
+            margin-top: 5px;
+            margin-left: 1rem
+        }
+        
+        @font-face {
+            font-display: swap;
+            font-family: vicasso;
+            src: url(vicasso/afe27afa1552f15b1f4f7090a35260bb.eot);
+            src: url(vicasso/afe27afa1552f15b1f4f7090a35260bb.eot?#iefix)format("embedded-opentype"), url(vicasso/afe27afa1552f15b1f4f7090a35260bb.woff2)format("woff2"), url(vicasso/afe27afa1552f15b1f4f7090a35260bb.woff)format("woff"), url(vicasso/afe27afa1552f15b1f4f7090a35260bb.ttf)format("truetype"), url(vicasso/afe27afa1552f15b1f4f7090a35260bb.svg#Vicasso)format("svg")
+        }
+        
+        #header-text {
+            margin-top: 4px;
+            font-size: 170%;
+            color: #666;
+            text-align: center;
+            font-family: vicasso
+        }
+        
+        .modal-content {
+            border-radius: 12px
+        }
+        
+        .container {
+            height: calc(100vh - 40px);
+            width: 75vw;
+            min-width: var(--min-width);
+            min-height: 600px;
+            float: center
+        }
+        
+        #editor {
+            border-left: 1px solid #d2d6de;
+            border-right: 1px solid #d2d6de;
+            border-left: var(--border-color);
+            border-right: var(--border-color);
+            height: 100%;
+            font-size: 100%;
+            overflow-y: auto;
+            font-family: Menlo, Monaco, Consolas, courier new, monospace;
+            transition: var(--transition-delay)
+        }
+        
+        #mi {
+            display: flex;
+            height: calc(66% - 2.5px);
+            flex-direction: column
+        }
+        
+        #d {
+            display: flex;
+            height: calc(28% + 2.5px);
+            flex-direction: row;
+            justify-content: space-between;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, .1)0 1px 4px 1px;
+            box-shadow: var(--box-shadow);
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        
+        .status {
+            border: 0 solid;
+            border-radius: 0;
+            color: #000;
+            background-color: #f4f4f4;
+            color: var(--icon-color);
+            background-color: var(--tab-background-color);
+            transition: var(--transition-delay);
+            width: 102%
+        }
+        
+        .boxed {
+            line-height: 28px;
+            background-color: #f4f4f4;
+            border: 1px solid #d2d6de;
+            background-color: var(--tab-background-color);
+            transition: var(--transition-delay);
+            border: var(--border-color);
+            border-top: 0;
+            color: grey;
+            font-weight: 350;
+            margin-bottom: 0;
+            font-family: -apple-system, BlinkMacSystemFont, segoe ui, roboto, oxygen, ubuntu, cantarell, fira sans, droid sans, helvetica neue;
+            -webkit-font-smoothing: antialiased;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px
+        }
+        
+        .boxed1 {
+            line-height: 26px;
+            margin-bottom: 0;
+            background-color: #f4f4f4;
+            border: 1px solid #d2d6de;
+            background-color: var(--tab-background-color);
+            transition: var(--transition-delay);
+            border: var(--border-color);
+            border-right: 0;
+            color: grey;
+            font-weight: 300;
+            cursor: default;
+            width: 38px;
+            padding: 2px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px
+        }
+        
+        #output-status {
+            display: none
+        }
+        
+        .control-bar {
+            margin-top: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+            height: 30px;
+            flex: none;
+            display: flex;
+            flex-direction: row
+        }
+        
+        #header-control {
+            margin-top: 6px;
+            margin-left: 5px;
+            margin-right: 5px;
+            height: 34px
+        }
+        
+        .lang-select {
+            margin-right: 4px;
+            float: right
+        }
+        
+        .setting-btn {
+            float: right
+        }
+        
+        .label-primary {
+            background-color: #1a73e8e3 !important
+        }
+        
+        .thVal {
+            margin-top: -8px;
+            margin-bottom: -8px;
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #1a73e8e3;
+            background-color: var(--terminal-bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--form-border-color);
+            transition: var(--transition-delay)
+        }
+        
+        .boxed2 {
+            background-color: #fff;
+            color: #000;
+            background-color: var(--terminal-bg-color);
+            color: var(--text-color);
+            transition: var(--transition-delay);
+            border-top: 0;
+            border: 0;
+            height: calc(100% - 6px);
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: auto;
+            display: none
+        }
+        
+        .nav-tabs {
+            line-height: 5px;
+            background-color: #ebebeb;
+            border: 1px solid #d2d6de !important;
+            border-left: 1px solid #d2d6de;
+            border-right: 1px solid #d2d6de;
+            background-color: var(--nav-tab-background-color);
+            transition: var(--transition-delay);
+            border: var(--border-color) !important;
+            border-left: var(--border-color);
+            border-right: var(--border-color);
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px
+        }
+        
+        .nav-tabs>li>a {
+            display: inline-block;
+            line-height: 60%;
+            cursor: pointer
+        }
+        
+        .btn-success {
+            background-color: #fff;
+            color: #00a65a;
+            border-color: #008d4c
+        }
+        
+        .btn-danger {
+            background-color: #fff;
+            color: #dd4b39;
+            border-color: #d73925
+        }
+        
+        .nav-tabs>li.active {
+            font-weight: 700
+        }
+        
+        .nav-tabs>li>span {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 7px;
+            color: grey
+        }
+        
+        .nav-tabs>li:hover>span {
+            display: inline-block;
+            color: grey;
+            cursor: pointer
+        }
+        
+        .nav-tabs>li>span>i:hover {
+            display: inline-block;
+            color: #d9534f;
+            cursor: pointer
+        }
+        
+        pre {
+            display: block;
+            font-family: monospace;
+            white-space: pre;
+            font-size: 105%;
+            border-radius: 0;
+            border: 0 solid transparent;
+            overflow-x: auto;
+            overflow-y: auto;
+            min-height: 95%
+        }
+        
+        .dropdown-menu {
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2), 0 6px 15px 0 rgba(0, 0, 0, .19)
+        }
+        
+        .split {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            overflow-x: hidden
+        }
+        
+        .content {
+            border: 1px solid silver;
+            box-shadow: inset 0 1px 2px #e4e4e4;
+            background-color: #fff
+        }
+        
+        .gutter {
+            background-color: lightgrey opacity .2;
+            background-repeat: no-repeat;
+            background-position: 50%
+        }
+        
+        .gutter.gutter-horizontal {
+            cursor: col-resize;
+            border: solid 1px lightgrey;
+            background-color: lightgrey
+        }
+        
+        .gutter.gutter-vertical {
+            cursor: row-resize
+        }
+        
+        .progress-bar-primary {
+            background-color: #1a73e8
+        }
+        
+        .split.split-horizontal,
+        .gutter.gutter-horizontal {
+            height: 100%;
+            float: left
+        }
+        
+        #hidden_textarea {
+            position: absolute;
+            left: -100%;
+            top: -100%
+        }
+        
+        textarea {
+            font-size: large
+        }
+        
+        .progress-bar.active {
+            -webkit-animation: progress-bar-stripes .4s linear infinite;
+            -o-animation: progress-bar-stripes .4s linear infinite;
+            animation: progress-bar-stripes .4s linear infinite
+        }
+        
+        .textbox {
+            box-sizing: border-box;
+            -webkit-transition: .5s;
+            transition: .5s;
+            outline: none;
+            overflow: auto;
+            height: 30px !important;
+            border-radius: 3px;
+            flex: .9
+        }
+        
+        .textbox:focus {
+            border: 1px solid green
+        }
+        
+        .label {
+            font-size: 90% !important
+        }
+        
+        .progress {
+            height: 6px;
+            line-height: 6px;
+            background: #fff;
+            background: var(--terminal-bg-color);
+            transition: var(--transition-delay);
+            margin-bottom: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important
+        }
+        
+        .progress-bar {
+            line-height: 6px;
+            margin-bottom: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important
+        }
+        
+        .progress-bar-primary {
+            height: 6px !important
+        }
+        
+        .progress-bar-success {
+            height: 2px !important
+        }
+        
+        .progress-bar-danger {
+            height: 2px !important
+        }
+        
+        .progress-bar-warning {
+            height: 2px !important
+        }
+        
+        .ace-tm .ace_gutter {
+            background: #f4f4f4;
+            background: var(--tab-background-color);
+            transition: var(--transition-delay)
+        }
+        
+        .ace_gutter-cell {
+            color: grey;
+            margin-top: 1px;
+            font-size: 96%
+        }
+        
+        .ace_autocomplete {
+            font-size: 110%
+        }
+        
+        .tooltip {
+            position: fixed;
+            z-index: 1 !important
+        }
+        
+        .tooltip-inner {
+            background-color: #e4e4e4;
+            color: #000
+        }
+        
+        .tooltip.top .tooltip-arrow {
+            border-top-color: #e4e4e4
+        }
+        
+        .tooltip.right .tooltip-arrow {
+            border-right-color: #e4e4e4
+        }
+        
+        .tooltip.bottom .tooltip-arrow {
+            border-bottom-color: #e4e4e4
+        }
+        
+        .tooltip.left .tooltip-arrow {
+            border-left-color: #e4e4e4
+        }
+        
+        #shareModal,
+        #shareModalAfter {
+            text-align: -webkit-center;
+            text-align: -moz-center
+        }
+        
+        #aboutSiteModal {
+            -webkit-font-smoothing: antialiased
+        }
+        
+        .abountModalBody p {
+            line-height: 1.5em;
+            font-size: 115%;
+            font-weight: 400;
+            vertical-align: middle;
+            -webkit-font-smoothing: antialiased
+        }
+        
+        .modal-footer>p {
+            float: left;
+            margin-left: -1em
+        }
+        
+        @media all and (max-width:1100px) {
+            #container {
+                width: 100%
+            }
+        
+            .nav_logo {
+                margin-left: 2.8rem
+            }
+        
+            #header-text {
+                display: none
+            }
+        
+            #control-btn {
+                margin-right: 3px
+            }
+        }
+        
+        @media all and (max-width:571px) {
+            .nav_logo {
+                margin-left: 1.6rem;
+                font-size: 125%
+            }
+        
+            .container {
+                padding-right: 5px;
+                padding-left: 5px
+            }
+        }
+        
+        #shell-output {
+            white-space: -moz-pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+            padding: 0;
+            font-family: Menlo, Monaco, Consolas, courier new, monospace;
+            font-size: 13px;
+            border: none
+        }
+        
+        #term-output,
+        #term-form,
+        #term-input {
+            margin: 0;
+            padding: 0;
+            font-family: Menlo, Monaco, Consolas, courier new, monospace;
+            font-size: 13px;
+            border: none
+        }
+        
+        #term-output {
+            white-space: -moz-pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            word-break: break-word;
+            display: contents
+        }
+        
+        #term-input {
+            width: 60%;
+            background-color: #fff;
+            color: #000;
+            background-color: var(--terminal-bg-color);
+            color: var(--text-color);
+            transition: var(--transition-delay);
+            margin-top: .2rem
+        }
+        
+        .wrapper,
+        #term-form {
+            height: auto;
+            margin: 0;
+            margin-left: .6rem
+        }
+        
+        .wrapper {
+            margin-top: .4rem
+        }
+        
+        #term-input:focus {
+            outline: none;
+            border: none
+        }
+        
+        #term-expand {
+            margin-top: .2rem;
+            width: 100%
+        }
+        
+        .error {
+            color: red
+        }
+        
+        .warning {
+            color: red;
+            color: var(--warning-color)
+        }
+        
+        .fa-sync-alt {
+            font-size: small
+        }
+        
+        .error-msg {
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-thickness: 1.2px
+        }
+        
+        #carbonads {
+            font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Oxygen-Sans, Ubuntu, Cantarell, helvetica neue, Helvetica, Arial, sans-serif
+        }
+        
+        #carbonads {
+            position: fixed;
+            height: auto;
+            width: 11.5vw;
+            display: flex;
+            min-width: 120px;
+            background-color: var(--carbon-ad-bg-color);
+            box-shadow: var(--carbon-ad-box-shadow);
+            margin: auto;
+            margin-left: 1.6rem;
+            margin-top: 5rem
+        }
+        
+        #carbonads a {
+            color: var(--carbon-ad-color);
+            text-decoration: none
+        }
+        
+        #carbonads a:hover {
+            color: var(--carbon-ad-color)
+        }
+        
+        #carbonads span {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            text-align: center
+        }
+        
+        #carbonads .carbon-wrap {
+            display: flex;
+            flex-direction: column
+        }
+        
+        .carbon-img {
+            text-align: center;
+            margin: 0;
+            line-height: 1
+        }
+        
+        .carbon-text {
+            padding: 10px;
+            font-size: 13px;
+            line-height: 1.5
+        }
+        
+        .carbon-poweredby {
+            display: block;
+            padding: 8px 10px;
+            background: var(--carbon-ad-bg);
+            color: #aaa !important;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            font-weight: 600;
+            font-size: 9px;
+            line-height: 1
+        }
+        
+        #sidebar-right-ad,
+        #sidebar-left-ad {
+            min-width: 210px
+        }
+        
+        @media all and (max-width:1100px) {
+        
+            #sidebar-right-ad,
+            #sidebar-left-ad {
+                display: none
+            }
+        
+            .carbon-img>img {
+                height: 70px !important
+            }
+        
+            #carbonads .carbon-wrap {
+                flex-direction: row
+            }
+        
+            #carbonads {
+                position: relative;
+                height: 70px;
+                width: 40rem;
+                min-width: var(--min-width);
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 5px
+            }
+        
+            .carbon-text {
+                padding-top: 2px
+            }
+        
+            .carbon-poweredby {
+                background: 0 0;
+                margin-top: -25px;
+                text-align: right
+            }
+        }
+        
+        @media all and (max-width:410px) {
+            #carbonads {
+                width: var(--min-width)
+            }
+        
+            .addthis_inline_share_toolbox_28pb {
+                display: none
+            }
+        
+            .container {
+                padding-right: 0;
+                padding-left: 0
+            }
+        
+            #share-dialog {
+                width: calc(var(--min-width) - 20px)
+            }
+        }
+        
+        .para {
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: 0;
+            line-height: 1.625;
+            color: var(--text2-color)
+        }
+        
+        #footer {
+            color: #5f6368;
+            text-align: center;
+            padding: 10px;
+            letter-spacing: .25px;
+            margin-bottom: 0
+        }
+        
+        .header1 {
+            color: var(--text2-color)
+        }
+        
+        #info {
+            padding-right: 15px;
+            padding-left: 15px
+        }
+        
+        .text-content>h1 {
+            text-align: center
+        }
+        
+        .text-content>p,
+        .text-content>ul>li,
+        #info>ul>li {
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: 0;
+            line-height: 1.625;
+            color: var(--text2-color)
+        }
+        
+        .text-content {
+            background: var(--carbon-ad-bg-color);
+            padding: 5px 20px;
+            margin: 20px 8px;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow)
+        }
+        
+        .d-flex {
+            display: flex
+        }
+        
+    </style>
+    <script>
+        function run_python() {
+            selected_text = editor.session.getTextRange(editor.getSelectionRange());
+            input_arguments = document.getElementById("input_arguments").value;
+            connect_error = '';
+            var hint;
+            if (hint_glow !== undefined && hint_glow !== null) {
+                clearInterval(hint_glow);
+            }
+            $("#share-btn").popover('hide');
+            if (selected_text.length > 0) {
+                editor_val = selected_text;
+            } else {
+                editor_val = editor.getValue();
+            }
+            if (editor_val.trim() === '') {
+                $('#run-btn').blur();
+                toastr.info('Cannot Run Empty Code', 'INFO');
+            } else {
+                prev_result = 'in';
+                document.getElementById("hint-section").innerHTML = '';
+                editor_list = $(".nav-tabs").children('li');
+                code_contents = [];
+                active_filename = '';
+                for (let i = 0; i < editor_list.length - 1; i++) {
+                    editor_index = parseInt($(editor_list[i]).attr('id').split('-')[1]);
+                    code_content = {}
+                    code_content['code'] = editor_session[editor_index - 1].getValue();
+                    code_content['file_name'] = $(editor_list[i]).children('a')[0].innerText;
+                    if ($(editor_list[i]).hasClass('active')) {
+                        active_filename = code_content['file_name'];
+                    }
+                    code_contents.push(code_content);
+                }
+                active_file_name = active_editor_id.html();
+                document.getElementById("download_file_name").value = active_file_name.replace(/\..*/g, '').toLowerCase() + '_output.txt';
+                init_ts = performance.now();
+                if (typeof socket !== "undefined") {
+                    socket.close();
+                }
+                output.innerHTML = '';
+                progress_status.innerHTML = '';
+                $('#output').append('<div class="wrapper" id="wrap"></div><form id="term-form"><input id="term-input" autocomplete="off"></form>');
+                exec_detail.innerHTML = '<span class="label label-primary"><i class="fas fa-sync-alt fa-spin"></i>&ensp;Connecting to Server</span>';
+                progress_status.innerHTML = '<div class="progress" id="progress-bar"><div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar"></div></div>';
+                document.getElementById('control-btn').innerHTML = '<button type="button" class="btn btn-danger btn-sm" id="stop-btn" onclick="stop_python()"><i class="fa fa-stop"></i>&ensp;<strong>Stop</strong></button>';
+                $('#stop-btn').removeAttr('disabled');
+                $('.status button').attr('disabled', 'disabled');
+                $('#terminal-ad').css('display', 'none');
+                $('#output').css('display', 'block');
+                document.getElementById('wrap').innerHTML = '';
+                socket_options['query'] = {
+                    type: "script",
+                    "lang": "python3"
+                };
+                socket = io(repl_host, socket_options);
+                socket.emit('code', code_contents, input_arguments.substring(0, 500), active_filename);
+                socket.on('reconnecting', function() {
+                    console.log('Reconnecting to the server!');
+                });
+                socket.on('connect', function() {
+                    console.log('Client has connected to the server');
+                });
+                socket.on('exit', function(data, code) {
+                    add_content(data);
+                    final_ts = Math.floor(performance.now() - init_ts) / 1000;
+                    if (code == 0) {
+                        exe_cnt += 1;
+                        progress_status.innerHTML = '<div class="progress" id="progress-bar"><div class="progress-bar progress-bar-success active" role="progressbar"></div></div>';
+                    } else if (code == 1000) {
+                        progress_status.innerHTML = '<div class="progress" id="progress-bar"><div class="progress-bar progress-bar-warning active" role="progressbar"></div></div>';
+                    } else {
+                        progress_status.innerHTML = '<div class="progress" id="progress-bar"><div class="progress-bar progress-bar-danger active" role="progressbar"></div></div>';
+                    }
+                    document.getElementById('control-btn').innerHTML = '<button type="button" class="btn btn-success btn-sm" id="run-btn" onclick="run_python()"><i class="fa fa-play"></i>&ensp;<strong>Run</strong></button>';
+                    $('#run-btn').removeAttr('disabled');
+                    $('.status button').removeAttr('disabled');
+                    if (exe_cnt === 5) {
+                        $("#share-btn").popover('show');
+                        exe_cnt += 1;
+                        setTimeout(function() {
+                            $("#share-btn").popover('hide')
+                        }, 7000);
+                    }
+                    if (hint !== undefined) {
+                        document.getElementById("hint-section").innerHTML = '<a tabindex="0" type="button" id="hint-btn" data-toggle="popover" data-placement="right" data-trigger="hover" data-content="' + hint + '" title="Hint" class="btn btn-default btn-sm status"><i class="fas fa-lightbulb"></i></button></a>';
+                        $("#hint-btn").popover('show');
+                        setTimeout(function() {
+                            $("#hint-btn").popover('hide')
+                        }, 7000);
+                        hint_glow = setInterval(function() {
+                            if ($("#hint-btn").css('transform').search('1.5') !== -1) {
+                                $("#hint-btn").css('transform', 'scale(1.2)')
+                            } else {
+                                $("#hint-btn").css('transform', 'scale(1.5)')
+                            }
+                        }, 700);
+                    }
+                    add_content('\nPress Enter to exit terminal');
+                    $(document).ready(function() {
+                        $('#term-input').focus();
+                        $('#term-form').submit(function(event) {
+                            clear_output();
+                            return false;
+                        });
+                    });
+                })
+                socket.on('output', function(data) {
+                    var encodedString = String.fromCharCode.apply(null, new Uint8Array(data));
+                    var buf = decodeURIComponent(escape(encodedString));
+                    add_content(buf, true);
+                });
+                socket.on('input', function(data) {
+                    var encodedString = String.fromCharCode.apply(null, new Uint8Array(data));
+                    var buf = decodeURIComponent(escape(encodedString));
+                    add_input_content(buf, true);
+                });
+                socket.on('err', function(data) {
+                    var encodedString = String.fromCharCode.apply(null, new Uint8Array(data));
+                    var buf = decodeURIComponent(escape(encodedString));
+                    add_err(buf);
+                });
+                socket.on('reconnect_failed', function(err) {
+                    console.log("Connection Failed");
+                    clear_content();
+                    add_content("Problem in connecting to the server. Below could be the possible reasons:\n", true);
+                    add_content("  -  Your Page can be unresponsive. Please reload your page and try.\n", true);
+                    add_content("  -  Your Internet might be down. Check your internet connection.\n", true);
+                    add_content("  -  Server may not be reachable and could be under maintenence. Please try after sometime.\n", true);
+                    document.getElementById('control-btn').innerHTML = '<button type="button" class="btn btn-success btn-sm" id="run-btn" onclick="run_python()" id="#run"><i class="fa fa-play"></i>&ensp;<strong>Run</strong></button>';
+                    $('#run-btn').removeAttr('disabled');
+                    $('.status button').removeAttr('disabled');
+                    socket.close();
+                });
+                socket.on('connect_error', function(err) {
+                    console.log("Connection Failed - " + err);
+                    connect_error = err;
+                });
+                $(document).ready(function() {
+                    $('#term-form').submit(function(event) {
+                        var input = $('#term-input');
+                        socket.send(input.val());
+                        return false;
+                    });
+                    var scrolledWindow = $('body').height() - $(window).height() + 0
+                    $(window).scrollTop(scrolledWindow);
+                    $('#term-input').focus();
+                });
+            }
+        }
+        
+        function stop_python() {
+            document.getElementById('progress-status').innerHTML = '';
+            if (typeof socket !== "undefined") {
+                socket.close();
+            }
+            final_ts = Math.floor(performance.now() - init_ts) / 1000;
+            progress_status.innerHTML = '<div class="progress" id="progress-bar"><div class="progress-bar progress-bar-warning active" role="progressbar"></div></div>';
+            exec_detail.innerHTML = '<span class="label label-warning"><i class="fa fa-exclamation-triangle"></i>&ensp;Aborted</span>';
+            document.getElementById('control-btn').innerHTML = '<button type="button" class="btn btn-success btn-sm" id="run-btn" onclick="run_python()" id="#run"><i class="fa fa-play"></i>&ensp;<strong>Run</strong></button>';
+            $('#run-btn').removeAttr('disabled');
+            $('.status button').removeAttr('disabled');
+            add_err("\n** Process Stopped **");
+            add_content('\nPress Enter to exit terminal');
+            $(document).ready(function() {
+                $('#term-input').focus();
+                $('#term-form').submit(function(event) {
+                    clear_output();
+                    return false;
+                });
+            });
+        }
+        
+        function update_editor_footer() {
+            pos = editor.session.selection.getCursor();
+            row = pos["row"] + 1;
+            column = pos["column"] + 1;
+            selected_char = editor.session.getTextRange(editor.getSelectionRange()).length;
+            if (selected_char > 0) {
+                y.innerHTML = "&emsp;Ln: " + row + ",&ensp;Col: " + column + "&nbsp;(" + selected_char + " selected)"
+            } else {
+                y.innerHTML = "&emsp;Ln: " + row + ",&ensp;Col: " + column
+            }
+        }
+        
+        function clear_output() {
+            socket.close();
+            document.getElementById('progress-status').innerHTML = '';
+            output.innerHTML = '';
+            progress_status.innerHTML = '';
+            exec_detail.innerHTML = '';
+            editor.focus();
+            if (display_flag) $('#terminal-ad').css('display', 'inline-block');
+            $('#output').css('display', 'none');
+            $('#run-btn').removeAttr('disabled');
+            $('#stop-btn').attr('disabled', 'disabled');
+            $('.status button').removeAttr('disabled');
+            $('.status button').attr('disabled', 'disabled');
+            $('.status button').tooltip('hide');
+        }
+        
+        function copy_output() {
+            $('.status').blur();
+            result = document.getElementById("pre");
+            element_id = "pre";
+            if (result === undefined || result === null) {
+                result = document.getElementById("wrap");
+                element_id = "wrap";
+            }
+            if (result) {
+                var copyText = '';
+                divChildren = document.getElementById(element_id).childNodes;
+                for (var i = 0; i < divChildren.length; i++) {
+                    copyText += divChildren[i].innerText;
+                }
+                const textArea = document.createElement('textarea');
+                textArea.setAttribute("id", "hidden_textarea");
+                textArea.textContent = copyText;
+                document.body.append(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                toastr.success('Result Copied to Clipboard', 'INFO');
+            }
+        }
+        
+        function download_output() {
+            result = document.getElementById("pre");
+            element_id = "pre";
+            if (result === undefined || result === null) {
+                result = document.getElementById("wrap");
+                element_id = "wrap";
+            }
+            filename = document.getElementById("download_file_name").value;
+            if (result) {
+                var copyText = '';
+                divChildren = document.getElementById(element_id).childNodes;
+                for (var i = 0; i < divChildren.length; i++) {
+                    copyText += divChildren[i].innerText;
+                }
+                const textArea = document.createElement('textarea');
+                textArea.setAttribute("id", "hidden_textarea");
+                textArea.textContent = copyText;
+                document.body.append(textArea);
+                textArea.select();
+                if (textArea.value !== '') {
+                    download(textArea.value, filename, "text/txt");
+                } else {
+                    toastr.info('Cannot Download Empty Result', 'INFO');
+                }
+            }
+        }
+        
+        function download_code() {
+            filename = document.getElementById("code_file_name").value;
+            if (editor.getValue() !== '') {
+                const copyText = editor.getValue();
+                const textArea = document.createElement('textarea');
+                textArea.setAttribute("id", "hidden_textarea");
+                textArea.textContent = copyText;
+                document.body.append(textArea);
+                textArea.select();
+                if (textArea.value !== '') {
+                    download(textArea.value, filename, "text/txt");
+                }
+            } else {
+                toastr.info('Code is blank to download', 'INFO');
+            }
+        }
+        
+        function download(content, filename, contentType) {
+            if (!contentType) contentType = 'application/octet-stream';
+            var a = document.createElement('a');
+            var blob = new Blob([content], {
+                'type': contentType
+            });
+            a.href = window.URL.createObjectURL(blob);
+            a.download = filename;
+            a.click();
+        }
+        
+        function updateVal(currentEle, value) {
+            $(document).off('click');
+            $('.add-editor').attr('disabled', 'disabled');
+            $(currentEle).html('<input class="thVal" type="text" value="' + value + '" />');
+            $(".thVal").focus();
+            $(".thVal").keyup(function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                if (event.keyCode == 13) {
+                    filenames = get_filenames();
+                    input_filename = $(".thVal").val();
+                    if (input_filename !== '' && input_filename !== undefined && input_filename !== null && filenames.indexOf(input_filename) < 0) $(currentEle).html(input_filename.replace(/[^0-9A-Za-z-_\.]/g, ''));
+                    else $(currentEle).html(value);
+                    if (filenames.indexOf(input_filename) >= 0) {
+                        toastr.info(input_filename + ' already exits. Please choose different name.', 'INFO');
+                    }
+                    editor.focus();
+                    $(document).off('click');
+                    $('.add-editor').removeAttr('disabled');
+                }
+            });
+            $(document).click(function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                if ($(event.target).attr('class') != "thVal") {
+                    filenames = get_filenames();
+                    input_filename = $(".thVal").val();
+                    if (input_filename !== '' && input_filename !== undefined && input_filename !== null && filenames.indexOf(input_filename) < 0) $(currentEle).html(input_filename.replace(/[^0-9A-Za-z-_\.]/g, ''));
+                    else $(currentEle).html(value);
+                    if (filenames.indexOf(input_filename) >= 0) {
+                        toastr.info(input_filename + ' already exits. Please choose different name.', 'INFO');
+                    }
+                    editor.focus();
+                    $(document).off('click');
+                    $('.add-editor').removeAttr('disabled');
+                }
+            });
+        }
+        
+        function goodbye(e) {
+            if (!e) e = window.event;
+            e.cancelBubble = true;
+            e.returnValue = 'You sure you want to leave?';
+            if (e.stopPropagation) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }
+        
+        function close_editor_tab() {
+            close_tab.prev().children('a').click();
+            close_tab.remove();
+            editor_index -= 1;
+            editor.focus();
+        }
+        
+        function save_code_modal() {
+            $('#save_file').blur();
+            if (active_editor_id.html().search('<input') === -1) {
+                if (editor.getValue().trim() === '') {
+                    toastr.info('Code is empty to save', 'INFO');
+                } else {
+                    active_file_name = active_editor_id.html();
+                    document.getElementById("code_file_name").value = active_file_name.replace(/\..*/g, '').toLowerCase() + '.py';
+                    $("#saveEditorTab").modal('show');
+                }
+            }
+        }
+        
+        function download_modal() {
+            $("#downloadResult").modal('show');
+        }
+        
+        function about_modal() {
+            $("#aboutSiteModal").modal('show');
+        }
+        
+        function ace_setting() {
+            editor.showSettingsMenu();
+        }
+        
+        function dispFile(contents) {
+            editor_cnt += 1;
+            editor_index += 1;
+            var id = editor_cnt;
+            active_editor = id;
+            editor_session[active_editor - 1] = ace.createEditSession('', "ace/mode/python");
+            editor.setSession(editor_session[active_editor - 1]);
+            $('.add-editor').closest('li').before('<li id="editor-' + id + '"><a data-toggle="tab">' + open_file_name + '</a> <span> <i class="fa fa-times"></i></span></li>');
+            active_editor_id = $(".nav-tabs li").children('a').last();
+            active_editor_id.tab('show');
+            editor.session.setValue(contents);
+            editor.focus();
+            update_editor_footer();
+            editor.selection.on('changeCursor', function(e) {
+                update_editor_footer();
+            });
+            editor.selection.on('changeSelection', function(e) {
+                update_editor_footer();
+            });
+        }
+        
+        function clickElem(elem) {
+            var eventMouse = document.createEvent("MouseEvents")
+            eventMouse.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+            elem.dispatchEvent(eventMouse)
+        }
+        
+        function openFile(func) {
+            $('#open_file').blur();
+            readFile = function(e) {
+                var file = e.target.files[0];
+                if (!file) {
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var contents = e.target.result;
+                    fileInput.func(contents)
+                    document.body.removeChild(fileInput)
+                }
+                reader.readAsText(file)
+                open_file_name = file.name;
+            }
+            fileInput = document.createElement("input")
+            fileInput.type = 'file'
+            fileInput.style.display = 'none'
+            fileInput.onchange = readFile
+            fileInput.func = func
+            document.body.appendChild(fileInput)
+            clickElem(fileInput)
+        }
+        
+        function start_terminal() {
+            $('#start-term').tooltip('hide');
+            if (typeof socket !== "undefined") {
+                document.getElementById('control-btn').innerHTML = '<button type="button" class="btn btn-success btn-sm" id="run-btn" onclick="run_python()" id="#run"><i class="fa fa-play"></i>&ensp;<strong>Run</strong></button>';
+                $('#run-btn').removeAttr('disabled');
+                $('.status button').removeAttr('disabled');
+                socket.close();
+            }
+            output.innerHTML = '<div class="wrapper" id="wrap"></div><form id="term-form"><input id="term-input" autocomplete="off"></form>';
+            $('#output').css('display', 'block');
+            input_arguments = document.getElementById("input_arguments").value;
+            socket_options['query'] = {
+                type: "shell"
+            };
+            socket = io(repl_host, socket_options);
+            exec_detail.innerHTML = '<span class="label label-primary"><i class="fas fa-sync-alt fa-spin"></i>&ensp;Connecting to Server</span>';
+            socket.on('connect', function() {
+                console.log('Client has connected to the server!');
+                clear_content();
+            });
+            socket.on('reconnecting', function() {
+                console.log('Reconnecting to the server!');
+            });
+            socket.on('exit', function(data, code) {
+                shell_add_content(data);
+                shell_add_content('\nPress Enter to exit terminal');
+                $(document).ready(function() {
+                    $('#term-input').focus();
+                    $('#term-form').submit(function(event) {
+                        clear_output();
+                        return false;
+                    });
+                });
+            })
+            socket.on('output', function(data) {
+                var buf = String.fromCharCode.apply(null, new Uint8Array(data));
+                shell_add_content(buf);
+            });
+            socket.on('err', function(data) {
+                var buf = String.fromCharCode.apply(null, new Uint8Array(data));
+                shell_add_err(buf);
+            });
+            socket.on('reconnect_failed', function() {
+                console.log("Connection Failed");
+                exec_detail.innerHTML = '';
+                shell_add_content("Problem in connecting to the server. Below could be the possible reasons:");
+                shell_add_content("  -  Your Page can be unresponsive. Please reload your page and try.");
+                shell_add_content("  -  Your Internet might be down. Check your internet connection.");
+                shell_add_content("  -  Server may not be reachable and could be under maintenence. Please try after sometime.");
+            });
+            $(document).ready(function() {
+                $("#term-form").keyup(function(event) {
+                    if (event.keyCode == 38) {
+                        if (command_index === command_list.length) {
+                            cur_cmd = $('#term-input').val();
+                        }
+                        command_index = command_index > 0 ? command_index - 1 : command_index;
+                        if (command_list.length > 0) {
+                            document.getElementById("term-input").value = command_list[command_index];
+                        }
+                    }
+                    if (event.keyCode == 40) {
+                        if (command_index === command_list.length) {
+                            cur_cmd = $('#term-input').val();
+                        }
+                        command_index = command_index < command_list.length ? command_index + 1 : command_index;
+                        if (command_index === command_list.length) {
+                            document.getElementById("term-input").value = cur_cmd;
+                        } else {
+                            document.getElementById("term-input").value = command_list[command_index];
+                        }
+                    }
+                });
+                $('#term-form').submit(function(event) {
+                    var input = $('#term-input');
+                    socket.send(input.val());
+                    if (input.val().trim() !== "" && input.val().trim() !== command_list[command_list.length - 1]) {
+                        command_list.push(input.val());
+                    }
+                    command_index = command_list.length;
+                    return false;
+                });
+                $('#term-input').focus();
+            });
+        }
+        
+        function add_content(bashOutput, focus) {
+            bashOutput = $('<div>').text(bashOutput).html();
+            $('.wrapper').append('<p id="term-output">' + bashOutput + '</p>');
+            document.getElementById('term-form').innerHTML = '<input id="term-input" autocomplete="off">';
+            if (focus) {
+                $('#term-input').focus();
+            }
+            var scrolledWindow = $('body').height() - $(window).height() + 0;
+            $(window).scrollTop(scrolledWindow);
+            if (bashOutput !== '' && bashOutput.slice(-1) !== "\n") prev_result = 'out';
+        }
+        
+        function add_input_content(bashOutput, focus) {
+            if (prev_result === 'in') {
+                bashOutput = bashOutput.replace(/^\n/, '');
+            }
+            bashOutput = $('<div>').text(bashOutput).html();
+            $('.wrapper').append('<p id="term-output">' + bashOutput + '</p>');
+            document.getElementById('term-form').innerHTML = '<input id="term-input" autocomplete="off">';
+            if (focus) {
+                $('#term-input').focus();
+            }
+            var scrolledWindow = $('body').height() - $(window).height() + 0;
+            $(window).scrollTop(scrolledWindow);
+            prev_result = 'in';
+        }
+        
+        function clear_content() {
+            progress_status.innerHTML = '';
+            document.getElementById('wrap').innerHTML = '';
+            exec_detail.innerHTML = '';
+            $('#run-btn').removeAttr('disabled');
+            $('#stop-btn').attr('disabled', 'disabled');
+            $('.status button').removeAttr('disabled');
+        }
+        
+        function add_err(bashError) {
+            cur = bashError.slice(-4);
+            if (cur === '>>> ' || cur === '... ') {
+                bashError = bashError.slice(0, -4);
+            } else {
+                cur = ""
+            }
+            bashError = $('<div>').text(bashError).html();
+            bashError_list = bashError.split("\n");
+            document.getElementById('term-form').innerHTML = cur + '<input id="term-input" autocomplete="off">';
+            for (i = 0; i < bashError_list.length; i++) {
+                if (bashError_list[i].trim() === "") {
+                    continue;
+                }
+                if (bashError_list[i].slice(0, 6) === 'Python' || bashError_list[i].slice(0, 4) === 'Type' || bashError_list[i].slice(0, 4) === '[GCC') {
+                    $('.wrapper').append('<p id="term-output">' + bashError_list[i] + '\n</p>');
+                } else if (bashError_list[i].search('Error:') !== -1) {
+                    $('.wrapper').append('<p id="term-output" class="error">' + bashError_list[i] + '\n</p>');
+                } else {
+                    $('.wrapper').append('<p id="term-output" class="warning">' + bashError_list[i] + '\n</p>');
+                }
+            }
+            var scrolledWindow = $('body').height() - $(window).height() + 0
+            $(window).scrollTop(scrolledWindow);
+            $('#term-input').focus();
+        }
+        
+        function shell_add_content(bashOutput) {
+            bashOutput = $('<div>').text(bashOutput).html();
+            $('.wrapper').append('<p id="shell-output">' + bashOutput + '</p>');
+            document.getElementById('term-form').innerHTML = '<input id="term-input" autocomplete="off">';
+            $('#term-input').focus();
+            var scrolledWindow = $('body').height() - $(window).height() + 0
+            $(window).scrollTop(scrolledWindow);
+        }
+        
+        function shell_add_err(bashError) {
+            cur = bashError.slice(-4);
+            if (cur === '>>> ' || cur === '... ') {
+                bashError = bashError.slice(0, -4);
+            } else {
+                cur = ""
+            }
+            bashError = $('<div>').text(bashError).html();
+            bashError_list = bashError.split("\n");
+            document.getElementById('term-form').innerHTML = cur + '<input id="term-input" autocomplete="off">';
+            for (i = 0; i < bashError_list.length; i++) {
+                if (bashError_list[i].slice(0, 6) === 'Python' || bashError_list[i].slice(0, 4) === 'Type' || bashError_list[i].slice(0, 4) === '[GCC') {
+                    $('.wrapper').append('<p id="shell-output">' + bashError_list[i] + '</p>');
+                } else if (bashError_list[i].search('Error:') !== -1) {
+                    $('.wrapper').append('<p id="shell-output" class="error">' + bashError_list[i] + '</p>');
+                } else {
+                    $('.wrapper').append('<p id="shell-output" class="warning">' + bashError_list[i] + '</p>');
+                }
+            }
+            var scrolledWindow = $('body').height() - $(window).height() + 0
+            $(window).scrollTop(scrolledWindow);
+            $('#term-input').focus();
+        }
+        
+        function get_filenames() {
+            editor_list = $(".nav-tabs").children('li');
+            filenames = []
+            for (let i = 0; i < editor_list.length - 1; i++) {
+                filenames.push($(editor_list[i]).children('a')[0].innerText);
+            }
+            return filenames;
+        }
+        
+        function get_host() {
+            return "https://repl.online-cpp.com";
+        }
+        
+        function undo_redo_update() {
+            if (!editor.session.getUndoManager().hasRedo()) {
+                $('#redo-editor').attr('disabled', 'disabled');
+            } else {
+                $('#redo-editor').removeAttr('disabled');
+            }
+            if (!editor.session.getUndoManager().hasUndo()) {
+                $('#undo-editor').attr('disabled', 'disabled');
+            } else {
+                $('#undo-editor').removeAttr('disabled');
+            }
+            $('#undo-editor').tooltip('hide');
+            $('#redo-editor').tooltip('hide');
+        }
+        
+
+    </script>
+
+</head>
+
+    <body>
+        <div>
+            <div class="main-content d-flex">
+                <div class="container" id="container">
+                    <div id="header-control">
+                        <div class="btn-group">
+                            <button
+                                type="button"
+                                class="btn btn-default btn-custom"
+                                onclick="save_code_modal()"
+                                id="save_file"
+                                data-toggle="tooltip"
+                                data-container="body"
+                                data-placement="right"
+                                title=""
+                                data-original-title="Save File to Disk - F9"
+                            >
+                                <i class="fas fa-save"></i>
+                            </button>
+                            <button type="button" class="btn btn-default btn-custom" id="undo-editor" data-toggle="tooltip" data-container="body" data-placement="right" title="" disabled="disabled" data-original-title="Undo / Crtl+z">
+                                <i class="fas fa-undo-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-default btn-custom" id="redo-editor" data-toggle="tooltip" data-container="body" data-placement="right" title="" disabled="disabled" data-original-title="Redo / Crtl+y">
+                                <i class="fas fa-redo-alt"></i>
+                            </button>
+                        </div>
+                        <div class="btn-group setting-btn" role="group">
+                            <button type="button" class="btn btn-default" id="toggle-theme" data-toggle="tooltip" data-container="body" data-placement="left" title="" data-original-title="Change Theme">
+                                <i class="fas fa-moon fa-lg"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="about_modal()" id="info" data-toggle="tooltip" data-container="body" data-placement="left" title="" data-original-title="About Site">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" onclick="ace_setting()" id="setting" data-toggle="tooltip" data-container="body" data-placement="left" title="" data-original-title="Settings">
+                                <i class="fas fa-cogs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="mi" class="split" style="height: calc(66% - 2.5px);">
+                        <div id="editor-main">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active" id="editor-1"><a data-toggle="tab">{{file_name}}</a></li>
+                                <li id="new_file_btn">
+                                    <button type="button" class="btn btn-default btn-sm add-editor" id="create_tab" data-title="New File"><i class="fas fa-plus"></i></button>
+                                </li>
+                            </ul>
+                            <div id="editor" class="ace_editor ace_hidpi ace-tm" style="line-height: 1.5;">
+                                <div style="position: absolute;"></div>
+                                <textarea
+                                    class="ace_text-input"
+                                    wrap="off"
+                                    autocorrect="off"
+                                    autocapitalize="off"
+                                    spellcheck="false"
+                                    style="opacity: 0; font-size: 1px; height: 1px; width: 1px; transform: translate(52px, 189px);"
+                                ></textarea>
+                                <div class="ace_gutter" aria-hidden="true" style="left: 0px; width: 49px;">
+                                    <div class="ace_layer ace_gutter-layer ace_folding-enabled" style="height: 1e6px; transform: translate(0px, 0px); width: 49px;">
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 0px;">1<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 21px;">2<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 42px;">3<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 63px;">4<span style="display: inline-block; height: 21px;" class="ace_fold-widget ace_start ace_open"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 84px;">5<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 105px;">6<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 126px;">7<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 147px;">8<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-active-line ace_gutter-cell" style="height: 21px; top: 168px;">9<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 189px;">10<span style="display: none;"></span></div>
+                                        <div class="ace_gutter-cell" style="height: 21px; top: 210px;">11<span style="display: none;"></span></div>
+                                    </div>
+                                </div>
+                                <div class="ace_scroller" style="line-height: 21px; left: 48.3945px; right: 0px; bottom: 0px;">
+                                    <div class="ace_content" style="transform: translate(0px, 0px); width: 624.605px; height: 336px;">
+                                        <div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 620px; visibility: hidden;"></div></div>
+                                        <div class="ace_layer ace_marker-layer"></div>
+                                        <div class="ace_layer ace_text-layer" style="height: 1e6px; margin: 0px 4px; transform: translate(0px, 0px);">
+                                            <div class="ace_line" style="height: 21px; top: 0px;"></div>
+                                            <div class="ace_line" style="height: 21px; top: 21px;"><span class="ace_comment"># Online Python - IDE, Editor, Compiler, Interpreter</span></div>
+                                            <div class="ace_line" style="height: 21px; top: 42px;"></div>
+                                            <div class="ace_line" style="height: 21px; top: 63px;">
+                                                <span class="ace_keyword">def</span> <span class="ace_support ace_function">sum</span><span class="ace_paren ace_lparen">(</span><span class="ace_identifier">a</span>
+                                                <span class="ace_punctuation">,</span> <span class="ace_identifier">b</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation">:</span>
+                                            </div>
+                                            <div class="ace_line" style="height: 21px; top: 84px;">
+                                                <span class="ace_keyword">return</span> <span class="ace_paren ace_lparen">(</span><span class="ace_identifier">a</span> <span class="ace_keyword ace_operator">+</span>
+                                                <span class="ace_identifier">b</span><span class="ace_paren ace_rparen">)</span>
+                                            </div>
+                                            <div class="ace_line" style="height: 21px; top: 105px;"></div>
+                                            <div class="ace_line" style="height: 21px; top: 126px;">
+                                                <span class="ace_identifier">a</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_support ace_function">int</span><span class="ace_paren ace_lparen">(</span>
+                                                <span class="ace_support ace_function">input</span><span class="ace_paren ace_lparen">(</span><span class="ace_string">'Enter 1st number: '</span><span class="ace_paren ace_rparen">))</span>
+                                            </div>
+                                            <div class="ace_line" style="height: 21px; top: 147px;">
+                                                <span class="ace_identifier">b</span> <span class="ace_keyword ace_operator">=</span> <span class="ace_support ace_function">int</span><span class="ace_paren ace_lparen">(</span>
+                                                <span class="ace_support ace_function">input</span><span class="ace_paren ace_lparen">(</span><span class="ace_string">'Enter 2nd number: '</span><span class="ace_paren ace_rparen">))</span>
+                                            </div>
+                                            <div class="ace_line" style="height: 21px; top: 168px;"></div>
+                                            <div class="ace_line" style="height: 21px; top: 189px;">
+                                                <span class="ace_keyword">print</span><span class="ace_paren ace_lparen">(</span><span class="ace_string">f'Sum of </span><span class="ace_paren ace_lparen">{</span>
+                                                <span class="ace_identifier">a</span><span class="ace_paren ace_rparen">}</span><span class="ace_string"> and </span><span class="ace_paren ace_lparen">{</span>
+                                                <span class="ace_identifier">b</span><span class="ace_paren ace_rparen">}</span><span class="ace_string"> is </span><span class="ace_paren ace_lparen">{</span>
+                                                <span class="ace_support ace_function">sum</span><span class="ace_paren ace_lparen">(</span><span class="ace_identifier">a</span>,<span class="ace_string"> </span>
+                                                <span class="ace_identifier">b</span><span class="ace_paren ace_rparen">)}</span><span class="ace_string">'</span><span class="ace_paren ace_rparen">)</span>
+                                            </div>
+                                            <div class="ace_line" style="height: 21px; top: 210px;"></div>
+                                        </div>
+                                        <div class="ace_layer ace_marker-layer"></div>
+                                        <div class="ace_layer ace_cursor-layer ace_hidden-cursors">
+                                            <div class="ace_cursor" style="animation-duration: 1000ms; display: block; transform: translate(4px, 168px); width: 8px; height: 21px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px; bottom: 0px;"><div class="ace_scrollbar-inner" style="width: 20px; height: 231px;">&nbsp;</div></div>
+                                <div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px; left: 48.3945px; right: 0px;"><div class="ace_scrollbar-inner" style="height: 20px; width: 624.602px;">&nbsp;</div></div>
+                                <div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;">
+                                    <div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">
+                                        הההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההה
+                                    </div>
+                                    <div
+                                        style="
+                                            height: auto;
+                                            width: auto;
+                                            top: 0px;
+                                            left: 0px;
+                                            visibility: hidden;
+                                            position: absolute;
+                                            white-space: pre;
+                                            font-style: inherit;
+                                            font-variant: inherit;
+                                            font-stretch: inherit;
+                                            font-size: inherit;
+                                            line-height: inherit;
+                                            font-family: inherit;
+                                            font-optical-sizing: inherit;
+                                            font-kerning: inherit;
+                                            font-feature-settings: inherit;
+                                            font-variation-settings: inherit;
+                                            overflow: visible;
+                                        "
+                                    >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="boxed" id="editor_footer">Ln: 9, Col: 1</div>
+                        </div>
+                        <div class="control-bar">
+                            <div id="control-btn">
+                                <button type="button" class="btn btn-success btn-sm" id="run-btn" onclick="run_python()" data-toggle="popover" data-placement="bottom" data-trigger="hover" data-content="F8" data-original-title="" title="">
+                                    <i class="fa fa-play"></i> <strong>Run</strong>
+                                </button>
+                            </div>
+                            </a>
+                            <input class="textbox" id="input_arguments" placeholder="Command Line Arguments" spellcheck="false" data-ms-editor="true" />
+                        </div>
+                    </div>
+                    <div class="gutter gutter-vertical" style="height: 5px;"></div>
+                    <div id="d" class="split" style="height: calc(28% - 2.5px);">
+                        <div class="boxed1" id="output_header">
+                            <div id="hint-section"></div>
+                            <div class="btn-group status" id="tool-btn">
+                                <button
+                                    type="button"
+                                    data-toggle="tooltip"
+                                    data-container="body"
+                                    data-placement="right"
+                                    title=""
+                                    class="btn btn-default btn-sm status"
+                                    onclick="copy_output()"
+                                    disabled="disabled"
+                                    data-original-title="Copy to Clipboard"
+                                >
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    data-toggle="tooltip"
+                                    data-container="body"
+                                    data-placement="right"
+                                    title=""
+                                    class="btn btn-default btn-sm status"
+                                    onclick="download_modal()"
+                                    disabled="disabled"
+                                    data-original-title="Download"
+                                >
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    data-toggle="tooltip"
+                                    data-container="body"
+                                    data-placement="right"
+                                    title=""
+                                    class="btn btn-default btn-sm status"
+                                    onclick="clear_output()"
+                                    disabled="disabled"
+                                    data-original-title="Clear"
+                                >
+                                    <i class="fas fa-eraser"></i>
+                                </button>
+                            </div>
+                            <button
+                                type="button"
+                                data-toggle="tooltip"
+                                data-container="body"
+                                data-placement="right"
+                                title=""
+                                class="btn btn-default btn-sm status"
+                                id="start-term"
+                                onclick="start_terminal()"
+                                data-original-title="Start Terminal"
+                            >
+                                <i class="fas fa-terminal"></i>
+                            </button>
+                            <button
+                                type="button"
+                                data-toggle="tooltip"
+                                data-container="body"
+                                data-placement="right"
+                                title=""
+                                class="btn btn-default btn-sm status"
+                                id="term-expand"
+                                onclick="term_expand()"
+                                data-original-title="Expand/Collapse"
+                            >
+                                <i class="fas fa-expand-alt fa-lg"></i>
+                            </button>
+                            <div id="output-status"></div>
+                        </div>
+                        <div id="terminal">
+                            <div id="progress-status"></div>
+                            <div class="boxed2" id="output">
+                                <div class="wrapper" id="wrap"></div>
+                                <form id="term-form"><input id="term-input" autocomplete="off" spellcheck="false" data-ms-editor="true" /></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" role="dialog" id="downloadResult">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h3 class="modal-title">Download Result</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group"><label for="name">File Name:</label> <input class="form-control" id="download_file_name" value="main_output.txt" spellcheck="false" data-ms-editor="true" /></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button class="btn btn-primary" onclick="download_output()" data-dismiss="modal">Download</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" role="dialog" id="closeEditorTab">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h3 class="modal-title" id="close_file_title">Close File</h3>
+                        </div>
+                        <div class="modal-body"><p>Your changes will be lost. Are you sure you want to Close the file ?</p></div>
+                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">No</button> <button class="btn btn-primary" onclick="close_editor_tab()" data-dismiss="modal">Yes</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" role="dialog" id="saveEditorTab">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h3 class="modal-title" id="save_file_title">Save</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>Do you want to save the file ?</p>
+                            <form>
+                                <div class="form-group"><label for="name">File Name:</label> <input class="form-control" id="code_file_name" value="main.py" spellcheck="false" data-ms-editor="true" /></div>
+                            </form>
+                        </div>
+                        <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">No</button> <button class="btn btn-primary" onclick="download_code()" data-dismiss="modal">Yes</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" role="dialog" id="shareModal">
+                <div class="modal-dialog" role="document" id="share-dialog">
+                    <div class="modal-content" id="share-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h3 class="modal-title" id="share_code">Share the Code</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="name">Expiry Period:</label>
+                                    <select class="form-control" id="expiry_select">
+                                        <option value="1">24 hour</option>
+                                        <option value="30">1 month</option>
+                                        <option selected="" value="180">6 month</option>
+                                        <option value="-1">Never</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" tabindex="-1" role="dialog" id="aboutSiteModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h2 class="modal-title"><strong>About this code IDE</strong></h2>
+                        </div>
+                        <div class="modal-body abountModalBody">
+                            <p>
+                                This code IDE is a web-based tool powered by <a href="https://ace.c9.io/" target="_blank">ACE</a> code editor. <b>Version - Python3.8</b>
+                            </p>
+                            <h3><strong>Keyboard Shortcuts</strong></h3>
+                            <ul style="font-size: larger;">
+                                <li>Run Code - F8</li>
+                                <li>Save Code - F10</li>
+                                <li>Open Editor Command Palette - F1</li>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                ace.require("ace/ext/language_tools");
+                var editor = ace.edit("editor");
+                ace.require("ace/ext/settings_menu").init(editor);
+                var editor_cnt = 1,
+                    editor_index = 1,
+                    active_editor = 1,
+                    editor_session = [];
+                var request, init_ts, open_file_name;
+                var lang = "python3";
+                default_content = he.decode("{{code}}").slice(1, -1);
+                // stops the code execution after file is done running
+                var exe_cnt = 0;
+                var csrf_token_name = "ci_csrf_token";
+                var csrf_token = "";
+                var isMobile = window.orientation > -1;
+                toastr.options = {
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: true,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: true,
+                    preventOpenDuplicates: true,
+                    maxOpened: 1,
+                    onclick: null,
+                    showDuration: "100",
+                    hideDuration: "1000",
+                    timeOut: "3000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                };
+                //expands the terminal
+                var instance = Split(["#mi", "#d"], {
+                    direction: "vertical",
+                    sizes: [66, 28],
+                    gutterSize: 5,
+                    cursor: "row-resize",
+                    minSize: [0, 180],
+                    onDrag: function () {
+                        editor.resize();
+                    },
+                });
+                function term_expand() {
+                    var element = document.getElementById("term-expand").innerHTML;
+                    if (element === '<i class="fas fa-expand-alt fa-lg"></i>') {
+                        instance.setSizes([0, 94]);
+                        editor.resize();
+                        document.getElementById("term-expand").innerHTML = '<i class="fas fa-compress-alt fa-lg"></i>';
+                    } else {
+                        instance.setSizes([66, 28]);
+                        editor.resize();
+                        document.getElementById("term-expand").innerHTML = '<i class="fas fa-expand-alt fa-lg"></i>';
+                    }
+                    $("#term-expand").blur();
+                    $('[data-toggle="tooltip"]').tooltip("hide");
+                }
+                //sets editor options
+                editor.setOptions({
+                    enableBasicAutocompletion: true,
+                    enableLiveAutocompletion: true,
+                    enableSnippets: true,
+                    showPrintMargin: false,
+                    fixedWidthGutter: true,
+                    autoScrollEditorIntoView: true,
+                    copyWithEmptySelection: true,
+                    highlightActiveLine: false,
+                });
+                editor.setTheme("ace/theme/textmate");
+                editor.container.style.lineHeight = 1.5;
+                if (he.decode("{{file_extention}}") == "py") {
+                    editor_session[0] = ace.createEditSession(default_content, "ace/mode/python");
+                }
+                else if (he.decode("{{file_extention}}") == "js") {
+                    editor_session[0] = ace.createEditSession(default_content, "ace/mode/javascript");
+                }
+
+                editor.setSession(editor_session[0]);
+                var active_editor_id = $("#editor-1").children("a");
+                var active_file_name = "main.py";
+                var repl_host = get_host();
+                var command_list = [];
+                var command_index = 0;
+                var cur_cmd;
+                var hint_glow;
+                var y = document.getElementById("editor_footer");
+                var output = document.getElementById("output");
+                var exec_detail = document.getElementById("output-status");
+                var progress_status = document.getElementById("progress-status");
+                var display_flag = true;
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip({ delay: { show: 750, hide: 50 } });
+                });
+                $(function () {
+                    $('[data-toggle="popover"]').popover({ delay: { show: 0, hide: 0 } });
+                });
+                $(".popover-dismiss").popover({ trigger: "hover" });
+                $(".nav-tabs")
+                    .on("click", "a", function (e) {
+                        e.preventDefault();
+                        detail_chk = e.detail === undefined ? 1 : e.detail;
+                        if (!$(this).hasClass("add-editor") && !$(this).children("input").hasClass("thVal") && detail_chk == 1) {
+                            active_editor = parseInt($(this).parent().attr("id").split("-")[1]);
+                            active_editor_id = $(this);
+                            editor.setSession(editor_session[active_editor - 1]);
+                            active_file_name = $(this).html();
+                            $(this).tab("show");
+                            editor.focus();
+                            update_editor_footer();
+                            undo_redo_update();
+                        }
+                    })
+                    .on("click", "span", function () {
+                        close_tab = $(this).parent();
+                        close_tab.children("a").click();
+                        $("#close_file_title").text("Close - " + active_file_name);
+                        if (editor.getValue() === "") {
+                            close_editor_tab();
+                        } else {
+                            $("#closeEditorTab").modal("show");
+                        }
+                    });
+                $("#redo-editor").attr("disabled", "disabled");
+                $("#undo-editor").attr("disabled", "disabled");
+                $("#rename_file").click(function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    active_editor_id.dblclick();
+                });
+                $("#undo-editor").click(function (e) {
+                    editor.session.getUndoManager().undo();
+                    undo_redo_update();
+                });
+                $("#redo-editor").click(function (e) {
+                    editor.session.getUndoManager().redo();
+                    undo_redo_update();
+                });
+                editor.getSession().on("change", function () {
+                    undo_redo_update();
+                });
+                let theme = localStorage.getItem("theme") !== undefined && localStorage.getItem("theme") !== null ? localStorage.getItem("theme") : "light";
+                if (theme === "dark") {
+                    $("body").addClass("dark");
+                    document.getElementById("toggle-theme").innerHTML = '<i class="fas fa-sun fa-lg"></i>';
+                    editor.setTheme("ace/theme/tomorrow_night_bright");
+                } else {
+                    $("body").removeClass("dark");
+                    document.getElementById("toggle-theme").innerHTML = '<i class="fas fa-moon fa-lg"></i>';
+                    editor.setTheme("ace/theme/textmate");
+                }
+                $("#toggle-theme").click(function (e) {
+                    document.body.classList.toggle("dark");
+                    if ($("body").hasClass("dark")) {
+                        editor.setTheme("ace/theme/tomorrow_night_bright");
+                        document.getElementById("toggle-theme").innerHTML = '<i class="fas fa-sun fa-lg"></i>';
+                        localStorage.setItem("theme", "dark");
+                    } else {
+                        editor.setTheme("ace/theme/textmate");
+                        document.getElementById("toggle-theme").innerHTML = '<i class="fas fa-moon fa-lg"></i>';
+                        localStorage.setItem("theme", "light");
+                    }
+                    $("#toggle-theme").blur();
+                    $('[data-toggle="tooltip"]').tooltip("hide");
+                });
+                $(".add-editor").click(function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    editor_cnt += 1;
+                    editor_index += 1;
+                    var id = editor_cnt;
+                    active_editor = id;
+                    editor_session[active_editor - 1] = ace.createEditSession("", "ace/mode/python");
+                    editor.setSession(editor_session[active_editor - 1]);
+                    $(this)
+                        .closest("li")
+                        .before('<li id="editor-' + id + '"><a data-toggle="tab">Untitled' + id + '.py</a> <span> <i class="fa fa-times"></i></span></li>');
+                    active_editor_id = $(".nav-tabs li").children("a").last();
+                    active_editor_id.tab("show");
+                    active_editor_id.dblclick();
+                    update_editor_footer();
+                    undo_redo_update();
+                    editor.selection.on("changeCursor", function (e) {
+                        update_editor_footer();
+                    });
+                    editor.selection.on("changeSelection", function (e) {
+                        update_editor_footer();
+                    });
+                    editor.getSession().on("change", function () {
+                        undo_redo_update();
+                    });
+                });
+                $(document).on("dblclick", ".nav-tabs > li > a", function (event) {
+                    if ($(event.target).attr("class") != "thVal") {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        var currentEle = $(this);
+                        var value = $(this).html();
+                        if (value.search("<input") === -1) updateVal(currentEle, value);
+                    }
+                });
+                editor.focus();
+                editor.navigateFileEnd();
+                update_editor_footer();
+                editor.selection.on("changeCursor", function (e) {
+                    update_editor_footer();
+                });
+                editor.selection.on("changeSelection", function (e) {
+                    update_editor_footer();
+                });
+                $(".status button").attr("disabled", "disabled");
+                $("#stop-btn").attr("disabled", "disabled");
+                socket_options = { transports: ["websocket"], timeout: 3000, "connect timeout": 3000, reconnection: true, reconnectionDelay: 1000, reconnectionDelayMax: 5000, reconnectionAttempts: 5 };
+                socket_options["query"] = { type: "shell" };
+                $(document).keyup(function (e) {
+                        IsCtrl = false;
+                        IsShift = false;
+                    })
+                    .keydown(function (e) {
+                        if (e.which == 17) {
+                            IsCtrl = true;
+                        }
+                        if (e.which == 16) {
+                            IsShift = true;
+                        }
+                        switch (e.which) {
+                            case 119:
+                                run_python();
+                                e.preventDefault();
+                                break;
+                            case 120:
+                                share_code_modal();
+                                e.preventDefault();
+                                break;
+                            case 121:
+                                save_code_modal();
+                                e.preventDefault();
+                                break;
+                        }
+                    });
+                $("#output").on("click", function () {
+                    $("#term-input").focus();
+                });
+                window.onbeforeunload = goodbye;
+            </script>
+        </div>
+        <script style="display: none;" async=""></script>
+    </body>
+</html>

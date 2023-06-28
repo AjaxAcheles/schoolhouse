@@ -56,7 +56,7 @@ def get_project_folder_contents(student_name, project_name, get_path:bool=False)
         return project_path
     return None
 
-def get_file_contents(student_name, project_name, file_name):
+def get_raw_file_contents(student_name, project_name, file_name):
     from os import getcwd
     # open and retrieve data from files
     path = getcwd()
@@ -66,4 +66,20 @@ def get_file_contents(student_name, project_name, file_name):
     file_obj = open(file_path)
     file_contents = file_obj.read()
     file_obj.close()
+    return file_contents
+
+def get_encoded_file_contents(student_name, project_name, file_name):
+    from os import getcwd
+    from json import dumps
+    from html import unescape
+    # open and retrieve data from files
+    path = getcwd()
+    local_path = f"students_code\\{student_name}\\projects\\{project_name}\\{file_name}"
+    file_path = path + "\\templates\\" + local_path
+    # reads the file contents
+    file_obj = open(file_path)
+    raw_file_contents = file_obj.read()
+    file_obj.close()
+    json_file_contents = dumps(raw_file_contents)
+    file_contents = unescape(json_file_contents)
     return file_contents
