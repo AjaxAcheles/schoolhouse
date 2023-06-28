@@ -1,4 +1,4 @@
-{% macro list_students(students, is_locked) %}
+{% macro list_students(students, has_password, is_locked) %}
     <div class="container-fluid pt-5 mt-5">
         <div class="container-sm">
           <div class="row">
@@ -11,8 +11,13 @@
                     <span class="input-group-text"><img class="img-16x16 folder-icon" src="{{url_for('static', filename='folder2.png')}}"></span>
                     <input class="form-control text-start text-capitalize" name="student" type="submit" value="{{student}}">
                     <!--adds lock.png-->
-                    {% if is_locked[student] == True %}
-                    <span class="input-group-text"><img class="img-16x16" src="{{url_for('static', filename='lock.png')}}"></span>
+                    {% if has_password[student] == True %}
+                      {% if is_locked[student] == True %}
+                        <span class="input-group-text"><img class="img-16x16" src="{{url_for('static', filename='lock.png')}}"></span>
+                      {% endif %}
+                      {% if is_locked[student] == False %}
+                        <span class="input-group-text"><img class="img-16x16" src="{{url_for('static', filename='unlock.png')}}"></span>
+                      {% endif %}
                     {% endif %}
                   </div><!--input group-->
                 </form>
