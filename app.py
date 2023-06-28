@@ -51,24 +51,29 @@ def web_dev():
 def students():
     if request.method == "GET":
         student_names = get_student_names()
-
-        # debug ############################################   DEBUG DEBUG DEBUG DEBUG   ########################
-        for student in session:
-            session[student] = False
-
+        
+        # checks to see if there is any students
         if student_names is None:
             abort(404)
 
-        # checks to see if the student has a password on their projects
-        is_locked = {}
+        # checks to see if the student has a password on their projects and if the client has already entered the password
+        has_password = {}
         for student in student_names:
             if get_password(student) is None:
+                has_password[student] = False
+            else:
+                has_password[student] = True
+            
+        is_locked = {}
+        for student in student_names:
+            if is_unlocked(student_name=student) is True:
                 is_locked[student] = False
             else:
                 is_locked[student] = True
 
         return render_template("students.html",
                                students=student_names,
+                               has_password=has_password,
                                is_locked=is_locked)
     
     if request.method == "POST":
