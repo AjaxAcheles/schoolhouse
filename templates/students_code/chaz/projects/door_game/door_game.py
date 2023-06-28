@@ -1,1 +1,3 @@
-print("hello there")
+ui = input("what is your name?")
+
+print(f"hello, {ui}")
