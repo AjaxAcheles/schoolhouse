@@ -2101,7 +2101,13 @@
                 });
                 editor.setTheme("ace/theme/textmate");
                 editor.container.style.lineHeight = 1.5;
-                editor_session[0] = ace.createEditSession(default_content, "ace/mode/python");
+                if (he.decode("{{file_extention}}") == "py") {
+                    editor_session[0] = ace.createEditSession(default_content, "ace/mode/python");
+                }
+                else if (he.decode("{{file_extention}}") == "js") {
+                    editor_session[0] = ace.createEditSession(default_content, "ace/mode/javascript");
+                }
+
                 editor.setSession(editor_session[0]);
                 var active_editor_id = $("#editor-1").children("a");
                 var active_file_name = "main.py";
