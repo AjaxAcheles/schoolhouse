@@ -119,8 +119,8 @@ def open_project_folder(student_name, project_name):
 def run_file(student_name, project_name, file_name):
     if request.method == "GET":
         file_contents = get_file_contents(student_name=student_name, project_name=project_name, file_name=file_name)
-        return file_contents
-    
+        return render_template("ide.html", file_name=file_name, code=file_contents)
+
     if request.method == "POST":
         return "post successful"
 
