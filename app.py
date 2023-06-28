@@ -5,7 +5,8 @@ from flask import (
     redirect,
     url_for,
     abort,
-    session
+    session,
+    send_file
 )
 from db_functions import *
 from decorators import *
@@ -65,7 +66,6 @@ def students():
                 is_locked[student] = False
             else:
                 is_locked[student] = True
-        print(is_locked)
 
         return render_template("students.html",
                                students=student_names,
@@ -118,11 +118,29 @@ def open_project_folder(student_name, project_name):
 @enter_password
 def run_file(student_name, project_name, file_name):
     if request.method == "GET":
-        file_contents = get_file_contents(student_name=student_name, project_name=project_name, file_name=file_name)
-        return file_contents
-    
+        file_extentions_that_should_activate_ide = ["py", "js"]
+        file_extentions_that_should_return_raw = ["txt", "css", "html", "png"]
+        file_extentions_that_should_return_photo = ["png", "jpg", "gif"]
+        file_extention = file_name.split(".")[-1].lower()
+
+        # returns IDE if needed
+        if file_extention in file_extentions_that_should_activate_ide:
+            file_contents = get_encoded_file_contents(student_name=student_name, project_name=project_name, file_name=file_name)
+            return render_template("ide.html", file_name=file_name, code=file_contents, file_extention=file_extention)
+        
+        # returns raw if needed
+        elif file_extention in file_extentions_that_should_return_raw: 
+            file_contents = get_raw_file_contents(student_name=student_name, project_name=project_name, file_name=file_name)
+            return file_contents
+        
+        # returns img if needed
+        elif file_extention in file_extentions_that_should_return_photo:
+            photo_path = get_project_path(student_name, project_name, file_name, get_local_path=False)
+            return send_file(photo_path)
+
     if request.method == "POST":
         return "post successful"
+
 
 @app.route("/students/<student_name>/enter_password", methods=["GET", "POST"])
 def enter_password(student_name):
