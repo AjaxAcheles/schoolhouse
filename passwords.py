@@ -1,6 +1,6 @@
 from flask import session
 passwords = {
-    "chaz": None,
+    "chaz": "ILikeCoding1",
     "aiden": None,
     "micah": None
 }
